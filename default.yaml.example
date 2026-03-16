@@ -1,0 +1,15 @@
+models:
+  default_chat_model:
+    type: chat
+    model_provider: openai_compatible
+    auth_type: api_key
+    api_key: ""
+    model: qwen3-max
+    model_supports_json: true
+    api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
+    concurrent_requests: 5
+    async_mode: threaded
+    retry_strategy: exponential_backoff
+    max_retries: 10
+    tokens_per_minute: null
+    requests_per_minute: null

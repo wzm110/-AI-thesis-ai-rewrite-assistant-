@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+*.spec
+
+# Runtime files
+logs/
+outputs/
+
+# Local secrets / env
+.env
+default.yaml
+prompt.txt
+论文.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
