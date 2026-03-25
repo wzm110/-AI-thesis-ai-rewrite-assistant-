@@ -10,8 +10,8 @@
 
 该脚本会自动：
 
-- 检查 `server.py` 语法
-- 检查分段逻辑是否满足 `<=250`
+- 检查 `server.py` 与 `paper_rewrite/` 包内模块语法
+- 检查分段逻辑是否满足 `<=250`（`import server` 后调用 `build_tasks_from_thesis`）
 - 检测 `default.yaml` 是否疑似包含真实 API Key
 - 清理 `logs/` 和 `outputs/`
 

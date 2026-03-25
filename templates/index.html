@@ -10,6 +10,24 @@
     <main class="container">
       <h1>论文分段改写实时对比</h1>
 
+      <section class="preprocess">
+        <h2>数据预处理</h2>
+        <p class="preprocess-hint">
+          上传 <code>.docx</code>，自动去掉图片、仅保留正文文字，覆盖写入当前工作目录下的
+          <code>论文.txt</code>。
+        </p>
+        <div class="preprocess-row">
+          <input
+            id="docxFileInput"
+            type="file"
+            accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            hidden
+          />
+          <button type="button" id="docxUploadBtn">选择 Word 并写入论文.txt</button>
+          <span id="docxUploadStatus" class="preprocess-status"></span>
+        </div>
+      </section>
+
       <section class="controls">
         <label>
           并发上限（1-10）：

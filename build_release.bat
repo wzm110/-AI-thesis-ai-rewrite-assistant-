@@ -27,6 +27,13 @@ pyinstaller ^
   --clean ^
   --onefile ^
   --name "论文降AI助手" ^
+  --hidden-import paper_rewrite ^
+  --hidden-import paper_rewrite.paths ^
+  --hidden-import paper_rewrite.config ^
+  --hidden-import paper_rewrite.core ^
+  --hidden-import paper_rewrite.llm ^
+  --hidden-import paper_rewrite.prompt ^
+  --hidden-import paper_rewrite.docx_extract ^
   --add-data "templates;templates" ^
   --add-data "static;static" ^
   --add-data "prompts;prompts" ^

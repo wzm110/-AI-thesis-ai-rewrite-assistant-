@@ -7,9 +7,9 @@ cd /d "%~dp0"
 echo ===== 发布前体检开始 =====
 
 echo [1/6] Python 语法检查...
-python -m py_compile "server.py"
+python -m py_compile "server.py" "paper_rewrite\__init__.py" "paper_rewrite\paths.py" "paper_rewrite\config.py" "paper_rewrite\core.py" "paper_rewrite\llm.py" "paper_rewrite\prompt.py" "paper_rewrite\docx_extract.py"
 if errorlevel 1 (
-  echo server.py 语法检查失败，请先修复。
+  echo Python 源码语法检查失败，请先修复。
   pause
   exit /b 1
 )

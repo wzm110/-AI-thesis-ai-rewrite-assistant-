@@ -38,6 +38,9 @@ const el = {
   statusText: document.getElementById("statusText"),
   finalText: document.getElementById("finalText"),
   debugLog: document.getElementById("debugLog"),
+  docxFileInput: document.getElementById("docxFileInput"),
+  docxUploadBtn: document.getElementById("docxUploadBtn"),
+  docxUploadStatus: document.getElementById("docxUploadStatus"),
 };
 
 function appendDebugLog(line, payload = null) {
@@ -332,6 +335,71 @@ async function startJob() {
 }
 
 el.startBtn.addEventListener("click", startJob);
+
+function setDocxStatus(message, isError = false) {
+  if (!el.docxUploadStatus) {
+    return;
+  }
+  el.docxUploadStatus.textContent = message;
+  el.docxUploadStatus.classList.toggle("error", Boolean(isError));
+}
+
+async function uploadDocx(file) {
+  setDocxStatus("上传中…", false);
+  const form = new FormData();
+  form.append("file", file);
+  try {
+    const resp = await fetch("/api/upload-docx", {
+      method: "POST",
+      body: form,
+    });
+    const raw = await resp.text();
+    let data = {};
+    try {
+      data = raw ? JSON.parse(raw) : {};
+    } catch {
+      data = {};
+    }
+    if (!resp.ok) {
+      const detail = data.detail;
+      const msg =
+        typeof detail === "string"
+          ? detail
+          : Array.isArray(detail) && detail[0]?.msg
+            ? detail[0].msg
+            : raw || `HTTP ${resp.status}`;
+      setDocxStatus(`失败：${msg}`, true);
+      sendFrontendLog("error", "upload_docx_failed", { status: resp.status, msg });
+      return;
+    }
+    const chars = data.chars ?? "?";
+    setDocxStatus(`已写入论文.txt（约 ${chars} 字）`, false);
+    sendFrontendLog("info", "upload_docx_ok", { chars: data.chars, path: data.path });
+    appendDebugLog("upload_docx_ok", data);
+  } catch (err) {
+    setDocxStatus(`失败：${String(err)}`, true);
+    sendFrontendLog("error", "upload_docx_exception", { err: String(err) });
+  }
+}
+
+if (el.docxUploadBtn && el.docxFileInput) {
+  el.docxUploadBtn.addEventListener("click", () => {
+    el.docxFileInput.click();
+  });
+  el.docxFileInput.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) {
+      return;
+    }
+    const lower = file.name.toLowerCase();
+    if (!lower.endsWith(".docx")) {
+      setDocxStatus("请选择 .docx 文件", true);
+      return;
+    }
+    uploadDocx(file);
+  });
+}
 
 window.addEventListener("error", (e) => {
   sendFrontendLog("error", "window_error", {
