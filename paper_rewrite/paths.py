@@ -11,8 +11,11 @@ if getattr(sys, "frozen", False):
     APP_DIR = Path.cwd()
 else:
     _PKG = Path(__file__).resolve().parent
-    RESOURCE_DIR = _PKG.parent
-    APP_DIR = RESOURCE_DIR
+    # When installed via pip, bundled static/templates/prompts live under this package.
+    # When running from source (not frozen), we still prefer the bundled copies to make behavior consistent.
+    RESOURCE_DIR = _PKG / "resources"
+    # User-facing files (prompt.txt / 论文.txt / outputs / logs) should be written to current working directory.
+    APP_DIR = Path.cwd()
 
 PROMPT_PATH = APP_DIR / "prompt.txt"
 THESIS_PATH = APP_DIR / "论文.txt"

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper-rewrite"
+version = "0.1.0"
+description = "论文/技术文档分段改写工具箱（本地 Web + CLI）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "httpx",
+  "pyyaml",
+  "jinja2",
+  "python-multipart",
+  "python-docx",
+]
+
+[project.scripts]
+paper-rewrite = "paper_rewrite.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["paper_rewrite*"]
+
+[tool.setuptools.package-data]
+"paper_rewrite" = ["resources/**"]
+

@@ -1,14 +1,12 @@
-# 论文降AI率助手（开源版）
+# 论文写作表达优化工具箱（本地 Web + CLI）
 
-> 面向毕业论文场景的本地改写工具：分段调用 LLM、实时返回、可视化对比、低门槛使用。
+> 面向论文/技术文档的本地表达优化工具：分段处理、实时流式对比、可视化差异展示、支持 Web 与命令行。
 
 ---
 
 ## 背景
 
-想免费降AI的来薅羊毛来，我最近在论文降 AI 率时，发现我一篇2万多字的就要60-180不等。
-
-这个项目的目标是：**想免费降AI率的，就别花那冤枉钱**，让没有代码基础的同学也能用。
+在论文写作与技术文档整理中，很多人希望把表达做得更清晰、更系统，同时尽量降低重复劳动。这个项目提供了一个“可本地运行”的工具箱：把长文按段拆分、调用 LLM 进行表达优化，并把原文/改写/差异在页面里实时展示。
 
 ## 准备论文正文的两种方式
 
@@ -46,6 +44,18 @@
 | `prompts/` | 内置提示词模板 |
 | `tests/` | `pytest` 冒烟、`qa_smoke.py` 手工测试、可选 LLM 联调脚本 |
 | `docs/` | 文档；**版本级变更见 [docs/更新说明.md](docs/更新说明.md)** |
+
+---
+
+## 安装与快速上手（推荐给 `pip` 用户）
+
+1. 安装（本地开发/源码安装）：`pip install -e .`
+2. 配置 API Key（任选其一）：环境变量 `OPENAI_API_KEY` / `AI_API_KEY`，或写入 `default.yaml` 的 `api_key`
+3. 准备输入：在运行目录放置 `论文.txt`（或通过 Web 页面上传 `.docx`，会写入 `论文.txt`）
+4. 启动与使用：
+   - Web：`paper-rewrite serve`
+   - 诊断：`paper-rewrite doctor`
+   - 命令行改写：`paper-rewrite rewrite --in 论文.txt --out outputs/改写结果.txt`
 
 ---
 
@@ -182,6 +192,10 @@ set OPENAI_API_KEY=你的key
 
 - **版本与变更记录**：[docs/更新说明.md](docs/更新说明.md)
 - **维护者发布流程**（打包 EXE、发布前检查等）：[docs/RELEASE.md](docs/RELEASE.md)
+- **贡献指南**：[CONTRIBUTING.md](CONTRIBUTING.md)
+- **安全报告**：[SECURITY.md](SECURITY.md)
+- **行为准则**：[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- **CI（GitHub Actions）**：自动运行 `pytest`（见 `.github/workflows/ci.yml`）
 
 ---
 

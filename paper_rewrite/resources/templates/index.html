@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>论文分段改写实时对比</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>论文分段改写实时对比</h1>
+
+      <section class="preprocess">
+        <h2>数据预处理</h2>
+        <p class="preprocess-hint">
+          上传 <code>.docx</code>，自动去掉图片、仅保留正文文字，覆盖写入当前工作目录下的
+          <code>论文.txt</code>。
+        </p>
+        <div class="preprocess-row">
+          <input
+            id="docxFileInput"
+            type="file"
+            accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            hidden
+          />
+          <button type="button" id="docxUploadBtn">选择 Word 并写入论文.txt</button>
+          <span id="docxUploadStatus" class="preprocess-status"></span>
+        </div>
+      </section>
+
+      <section class="controls">
+        <label>
+          并发上限（1-10）：
+          <input id="concurrencyInput" type="number" min="1" max="10" value="10" />
+        </label>
+        <button id="startBtn">开始改写</button>
+        <a id="downloadBtn" href="#" class="btn disabled">下载最终结果</a>
+      </section>
+
+      <section class="progress">
+        <div>任务ID：<span id="jobId">-</span></div>
+        <div>总任务：<span id="totalCount">0</span></div>
+        <div>已完成：<span id="doneCount">0</span></div>
+        <div>失败：<span id="errorCount">0</span></div>
+        <div>状态：<span id="statusText">未开始</span></div>
+      </section>
+
+      <section>
+        <h2>实时分段对比</h2>
+        <div id="cards" class="cards"></div>
+      </section>
+
+      <section>
+        <h2>最终整合结果</h2>
+        <textarea id="finalText" readonly placeholder="全部任务完成后会显示整合后的改写文本"></textarea>
+      </section>
+
+      <section>
+        <h2>调试日志（前端）</h2>
+        <pre id="debugLog" class="debug-log"></pre>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+

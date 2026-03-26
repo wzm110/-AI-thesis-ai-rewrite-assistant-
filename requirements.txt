@@ -5,4 +5,3 @@ httpx
 pyyaml
 jinja2
 python-docx
-pytest>=8.0.0
