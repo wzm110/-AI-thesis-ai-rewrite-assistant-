@@ -6,6 +6,13 @@
 
 ## 背景
 
+论文降AI率、降AIGC率：免费、本地、可视化，一键分段改写（自己配API）
+还在为论文降 AI 率花钱？我做了一个开源本地工具：按段切分论文、并发调用 LLM、实时展示“改前 vs 改后”对比。想免费降AIGC率的来薅羊毛来！我最近在论文降 AI 率时，发现一篇2万多字的论文，付费软件就要100-180不等。
+
+这个项目的目标是：想免费降AI率的，就别花那冤枉钱，让没有代码基础的同学也能用。
+
+支持 OpenAI 兼容接口 / Claude / Gemini，零基础也能一键跑。
+
 在论文写作与技术文档整理中，很多人希望把表达做得更清晰、更系统，同时尽量降低重复劳动。这个项目提供了一个“可本地运行”的工具箱：把长文按段拆分、调用 LLM 进行表达优化，并把原文/改写/差异在页面里实时展示。
 
 ## 准备论文正文的两种方式
@@ -109,7 +116,7 @@
 
 - `论文.txt`：待改写正文（可由页面上传 Word 自动生成）
 - `prompt.txt`：生效提示词
-- `default.yaml`：模型配置（支持多种 LLM API）
+- `default.yaml`：模型配置（新建一个这样的文件，然后复制`default.yaml.example`里面内容【里面缺少API KEY】，支持多种 LLM API）
 
 生成参数（可选，见 `default.yaml.example`）：
 
@@ -121,6 +128,12 @@
 任务与内存：服务端在内存中保留**最近约 20 个**改写任务；更早的任务 ID 会失效，下载结果需使用新任务。进程重启后任务列表清空。
 
 ### 2) 选择 LLM API 提供商（先区分“协议类型”和“厂商”）
+
+直转至对应的LLM API获取教程页面，注册一个账号，获取API key，这一步需要调大模型-有token花销（不过很少）。
+[Deepseek API](https://platform.deepseek.com/sign_in)
+[Gemini API](https://ai.google.dev/gemini-api/docs?hl=zh-cn)
+[阿里云 API](https://bailian.console.aliyun.com/cn-beijing/?spm=5176.29619931.J_SEsSjsNv72yRuRFS2VknO.2.188510d7pSOLaF&tab=api#/api)
+[GLM 智谱API](https://www.bing.com/ck/a?!&&p=468e8e3400cbf6a1d9c025837035234cf120f91fea9079fabb8ecbf302dafaa3JmltdHM9MTc3MzYxOTIwMA&ptn=3&ver=2&hsh=4&fclid=28b31beb-9659-6b1c-386c-0d41978b6ac6&u=a1aHR0cHM6Ly93d3cuYmlnbW9kZWwuY24vY29uc29sZS9vdmVydmlldw)
 
 当前支持：
 
